@@ -181,15 +181,7 @@ Incident Triage ████████████░░░░░░░░ Fou
 
 
 ---
-
-## 🔜 What's Next
-
-This is **Project 2 of 11** in my cybersecurity portfolio.
-
-**Project 3:** Python Security Automation Toolkit
-- Log parser and IP reputation checker
-- Port scanner and password auditor
-- AbuseIPDB API integration
+| 2 | [🔍 SIEM Deployment with Wazuh](https://github.com/kamalanathankaviprasath-cyber/project-2-siem-log-analysis-wazuh) | Wazuh, SIEM, Detection Rules, MITRE ATT&CK | ✅ Complete |
 
 **Full roadmap:**
 [github.com/kamalanathankaviprasath-cyber](https://github.com/kamalanathankaviprasath-cyber)

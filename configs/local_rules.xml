@@ -1,0 +1,76 @@
+<!-- =========================================
+     Custom Detection Rules — Project 2 Lab
+     Author: Kamalanathan Kaviprasath
+     Date: July 2026
+     Purpose: Detect common attacks in lab
+     ========================================= -->
+
+<group name="custom_lab_rules,">
+
+  <!-- RULE 100001: Port Scan Detection
+       Fires when: Nmap scans our network
+       Why changed: if_sid 40101 watches
+       port scan signature events
+       MITRE T1046: Network Service Discovery
+       Tactic: Discovery -->
+  <rule id="100001" level="10">
+    <if_sid>40101</if_sid>
+    <description>Port scan detected from
+    external host — possible reconnaissance
+    </description>
+    <mitre>
+      <id>T1046</id>
+    </mitre>
+    <group>port_scan,attack,recon,</group>
+  </rule>
+
+  <!-- RULE 100002: Brute Force Detection
+       Fires when: ANY auth failure happens
+       3 times within 2 minutes
+       Why changed: if_matched_group watches
+       ALL authentication_failed events
+       instead of one specific rule ID
+       Covers: Windows local + network login
+       MITRE T1110: Brute Force
+       Tactic: Credential Access -->
+  <rule id="100002" level="12"
+  frequency="3" timeframe="120">
+    <if_matched_group>authentication_failed
+    </if_matched_group>
+    <description>Multiple authentication
+    failures detected — possible brute
+    force attack
+    </description>
+    <mitre>
+      <id>T1110</id>
+    </mitre>
+    <group>authentication_failures,
+    brute_force,</group>
+  </rule>
+
+  <!-- RULE 100003: SSH Brute Force
+       Fires when: SSH auth failures happen
+       3 times within 2 minutes same IP
+       Why changed: if_matched_group watches
+       ALL authentication_failed events
+       same_source_ip ensures same attacker
+       Covers: rules 5710, 5503, 2502
+       MITRE T1110: Brute Force
+       Tactic: Credential Access -->
+  <rule id="100003" level="12"
+  frequency="3" timeframe="120">
+    <if_matched_group>authentication_failed
+    </if_matched_group>
+    <same_source_ip/>
+    <description>Multiple SSH login failures
+    from same IP — possible brute force
+    attack on Linux server
+    </description>
+    <mitre>
+      <id>T1110</id>
+    </mitre>
+    <group>authentication_failures,
+    brute_force,ssh,linux,</group>
+  </rule>
+
+</group>
